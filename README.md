@@ -15,10 +15,11 @@ $ node ./at-brute.njs [OPTIONS] --start
 
 ### Options:
 ```  
-  -p, --port    Specify the serial port to use  [default: "/dev/tty.usbserial"]
-  -b, --baud    Specify the baud rate           [default: 115200]
-  -o, --offset  Specify offset where to start   [default: 0]
-  -f, --file    Log to CSV file               
+  -p, --port       Specify the serial port to use        [default: "/dev/tty.usbserial"]
+  -b, --baud       Specify the baud rate                 [default: 115200]
+  -o, --offset     Specify offset where to start         [default: 0]
+  -s, --separator  Specify separator of AT and command.  [default: "+"]
+  -f, --file       Log to CSV file                  
 ```
 
 ## SCREENSHOT: 

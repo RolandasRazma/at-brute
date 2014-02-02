@@ -45,6 +45,11 @@ var optimist = require('optimist')
                         default : 0,
                         describe: 'Specify offset where to start'
                     },
+                    s: {
+                        alias : 'separator',
+                        default : '+',
+                        describe: 'Specify separator of AT and command.'
+                    },
                     f: {
                         alias : 'file',
                         describe: 'Log to CSV file'
@@ -118,7 +123,7 @@ serialPort.open(function() {
     var stepNo = 0;
 
     console.log("* open "+argv.port+" - "+"[OK]".green);
-    console.log("* start brute force AT commands with offset "+stringGenerator.offset+" (AT+"+stringGenerator.current()+"?)");
+    console.log("* start brute force AT commands with offset " +stringGenerator.offset +" (AT" +argv.separator +stringGenerator.current()+"?)");
     if( argv.file ){
         console.log("* logging to "+argv.file);
     }
@@ -127,7 +132,7 @@ serialPort.open(function() {
         dataBuffer = [String(stringGenerator.offset)];
 
         // generate command
-        var command = "AT+"+stringGenerator.current()+((stepNo%2)?"=?":"?");
+        var command = "AT" +argv.separator +stringGenerator.current() +((stepNo%2)?"=?":"?");
         process.stdout.write("\r["+strftime('%F %T', new Date())+" - "+stringGenerator.offset+"] "+command+((stepNo%2)?"":" "));
         
         // write
