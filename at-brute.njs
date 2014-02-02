@@ -106,12 +106,12 @@ serialPort.open(function() {
     
     // SerialPort close
     serialPort.on('close', function () {
-        console.log("* "+argv.port+" closed".red);
+        console.log("\n* "+argv.port+" closed".red);
     });
                 
     // SerialPort error
     serialPort.on('error', function( error ) {
-        console.log("* ERROR - "+error.toString().red);
+        console.log("\n* ERROR - "+error.toString().red);
     });
 
     var stringGenerator = new StringGenerator(["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"], argv.offset);
@@ -133,7 +133,7 @@ serialPort.open(function() {
         // write
         serialPort.write(command+"\n", function(err, results) {
             if( err ) {
-                console.log("ERROR: "+err.toString().red);
+                console.log("\n* ERROR - "+err.toString().red);
             }
         });
 
