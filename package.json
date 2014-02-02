@@ -1,0 +1,23 @@
+{
+    "name": "at-brute",
+    "version": "0.1.0",
+    "description": "at-brute - AT commands bruteforcer.",
+    "author": "Rolandas Razma",
+    "email": "rolandas@razma.lt",
+    "repository": "https://github.com/RolandasRazma/at-brute",
+    "keywords": [
+                 "node.js",
+                 "AT",
+                 "AT commands",
+                 "BruteForcer"
+                 ],
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "dependencies": {
+        "optimist": "*",
+        "colors": "*",
+        "strftime": "*",
+        "serialport": "*",
+        "csv": "*"
+    }
+}
