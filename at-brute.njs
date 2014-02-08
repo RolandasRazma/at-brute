@@ -67,7 +67,7 @@ if( !argv.start ) {
 
 // require
 require('colors');
-var StringGenerator = require('./modules/stringgenerator.js').StringGenerator;
+var StringGenerator = require('./modules/stringgenerator/stringgenerator.js').StringGenerator;
 var strftime = require('strftime');
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;
