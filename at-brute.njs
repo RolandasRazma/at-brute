@@ -53,6 +53,10 @@ var optimist = require('optimist')
                     f: {
                         alias : 'file',
                         describe: 'Log to CSV file'
+                    },
+                    ESLP: {
+                        describe: 'Start with AT+ESLP=0 - no sleep on mobile devices',
+                        default : false
                     }
                 });
 
@@ -147,5 +151,16 @@ serialPort.open(function() {
         }
     }
     
-    tryNextCommand();
+    if( argv.ESLP ){
+        // write
+        dataBuffer = ["*"];
+        process.stdout.write("\r["+strftime('%F %T', new Date())+" - *] AT+ESLP=0");
+        serialPort.write("AT+ESLP=0\n", function(err, results) {
+            if( err ) {
+                console.log("\n* ERROR - "+err.toString().red);
+            }
+        });
+    }else{
+        tryNextCommand();
+    }
 });

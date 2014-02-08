@@ -19,7 +19,8 @@ $ node ./at-brute.njs [OPTIONS] --start
   -b, --baud       Specify the baud rate                 [default: 115200]
   -o, --offset     Specify offset where to start         [default: 0]
   -s, --separator  Specify separator of AT and command.  [default: "+"]
-  -f, --file       Log to CSV file                  
+  -f, --file       Log to CSV file
+  --ESLP           Start with AT+ESLP=0 - no sleep on mobile devices  [default: false]
 ```
 
 ## SCREENSHOT: 
