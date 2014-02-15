@@ -50,10 +50,16 @@ var optimist = require('optimist')
                         default : '+',
                         describe: 'Specify separator of AT and command.'
                     },
+                    t: {
+                        alias : 'timeout',
+                        default : 0,
+                        describe: 'Specify timeout in seconds for command response before retrying. 0 to disable.'
+                    },
                     f: {
                         alias : 'file',
                         describe: 'Log to CSV file'
                     },
+                    
                     ESLP: {
                         describe: 'Start with AT+ESLP=0 - no sleep on mobile devices',
                         default : false
@@ -76,6 +82,7 @@ var strftime = require('strftime');
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;
 var csv;
+var timeoutTimer;
 
 // do we need logging?
 if( argv.file ){
@@ -137,6 +144,29 @@ serialPort.open(function() {
 
         // generate command
         var command = "AT" +argv.separator +stringGenerator.current() +((stepNo%2)?"=?":"?");
+        tryCommand( command );
+        
+        if( ++stepNo%2 ){
+            stringGenerator.offset++;
+        }
+    }
+    
+    function tryCommand( command ){
+
+        // time out timer
+        if( argv.timeout ){
+            if( timeoutTimer ) {
+                clearTimeout( timeoutTimer );
+            }
+            timeoutTimer = setTimeout(function(){
+                console.log(" - timed out.".red);
+                
+                timeoutTimer = null;
+                tryCommand( command );
+            }, argv.timeout *1000);
+        }
+
+        // Show on screen
         process.stdout.write("\r["+strftime('%F %T', new Date())+" - "+stringGenerator.offset+"] "+command+((stepNo%2)?"":" "));
         
         // write
@@ -145,10 +175,6 @@ serialPort.open(function() {
                 console.log("\n* ERROR - "+err.toString().red);
             }
         });
-
-        if( ++stepNo%2 ){
-            stringGenerator.offset++;
-        }
     }
     
     if( argv.ESLP ){
